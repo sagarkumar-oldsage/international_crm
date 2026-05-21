@@ -3,8 +3,12 @@ import {
   ApplicationStatus,
   DocumentCategory,
   DocumentStatus,
+  EventCategory,
+  EventStatus,
+  MouStatus,
   PrismaClient,
-  UserRole
+  UserRole,
+  VisaStage
 } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -143,6 +147,35 @@ async function main() {
     }
   });
 
+  await prisma.visaCase.upsert({
+    where: {
+      id: "visa-1"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      country: "Germany",
+      visaType: "National Visa (D)",
+      currentStage: VisaStage.APPOINTMENT_BOOKED,
+      appointmentDate: new Date("2026-07-18"),
+      biometricsDate: new Date("2026-07-18"),
+      interviewDate: new Date("2026-07-25"),
+      decisionDate: null,
+      notes: "Keep blocked account statement and insurance copy ready."
+    },
+    create: {
+      id: "visa-1",
+      studentProfileId: studentProfile.id,
+      country: "Germany",
+      visaType: "National Visa (D)",
+      currentStage: VisaStage.APPOINTMENT_BOOKED,
+      appointmentDate: new Date("2026-07-18"),
+      biometricsDate: new Date("2026-07-18"),
+      interviewDate: new Date("2026-07-25"),
+      decisionDate: null,
+      notes: "Keep blocked account statement and insurance copy ready."
+    }
+  });
+
   await prisma.studentDocument.upsert({
     where: {
       id: "doc-2"
@@ -165,6 +198,154 @@ async function main() {
       status: DocumentStatus.PENDING_REVIEW,
       expiresAt: null,
       notes: "Awaiting faculty mentor review"
+    }
+  });
+
+  await prisma.partnerUniversity.upsert({
+    where: {
+      id: "partner-1"
+    },
+    update: {
+      name: "Technical University of Munich",
+      country: "Germany",
+      city: "Munich",
+      website: "https://www.tum.de",
+      contactPersonName: "Dr. Anna Fischer",
+      contactPersonEmail: "anna.fischer@tum.example",
+      collaborationAreas: ["Student Exchange", "Research Collaboration", "Summer School"],
+      mouStatus: MouStatus.ACTIVE,
+      renewalDate: new Date("2027-03-15"),
+      mobilityQuota: 12,
+      jointPrograms: ["AI Mobility Semester", "Industry Research Residency"],
+      notes: "Priority partner for engineering mobility tracks"
+    },
+    create: {
+      id: "partner-1",
+      name: "Technical University of Munich",
+      country: "Germany",
+      city: "Munich",
+      website: "https://www.tum.de",
+      contactPersonName: "Dr. Anna Fischer",
+      contactPersonEmail: "anna.fischer@tum.example",
+      collaborationAreas: ["Student Exchange", "Research Collaboration", "Summer School"],
+      mouStatus: MouStatus.ACTIVE,
+      renewalDate: new Date("2027-03-15"),
+      mobilityQuota: 12,
+      jointPrograms: ["AI Mobility Semester", "Industry Research Residency"],
+      notes: "Priority partner for engineering mobility tracks"
+    }
+  });
+
+  await prisma.partnerUniversity.upsert({
+    where: {
+      id: "partner-2"
+    },
+    update: {
+      name: "University of British Columbia",
+      country: "Canada",
+      city: "Vancouver",
+      website: "https://www.ubc.ca",
+      contactPersonName: "Prof. Liam Carter",
+      contactPersonEmail: "liam.carter@ubc.example",
+      collaborationAreas: ["Faculty Exchange", "Joint Conference"],
+      mouStatus: MouStatus.RENEWAL_DUE,
+      renewalDate: new Date("2026-07-01"),
+      mobilityQuota: 8,
+      jointPrograms: ["Global Innovation Forum"],
+      notes: "Renewal in legal review stage"
+    },
+    create: {
+      id: "partner-2",
+      name: "University of British Columbia",
+      country: "Canada",
+      city: "Vancouver",
+      website: "https://www.ubc.ca",
+      contactPersonName: "Prof. Liam Carter",
+      contactPersonEmail: "liam.carter@ubc.example",
+      collaborationAreas: ["Faculty Exchange", "Joint Conference"],
+      mouStatus: MouStatus.RENEWAL_DUE,
+      renewalDate: new Date("2026-07-01"),
+      mobilityQuota: 8,
+      jointPrograms: ["Global Innovation Forum"],
+      notes: "Renewal in legal review stage"
+    }
+  });
+
+  await prisma.internationalEvent.upsert({
+    where: {
+      id: "event-1"
+    },
+    update: {
+      title: "Global Mobility Orientation 2026",
+      category: EventCategory.SEMINAR,
+      format: "Hybrid",
+      hostCountry: "India",
+      venue: "Senate Hall, Poornima Campus",
+      organizer: "International Relations Office",
+      registrationDeadline: new Date("2026-06-05"),
+      startDate: new Date("2026-06-10T10:00:00.000Z"),
+      endDate: new Date("2026-06-10T13:00:00.000Z"),
+      status: EventStatus.REGISTRATION_OPEN,
+      capacity: 250,
+      registeredCount: 184,
+      speaker: "Dr. Sofia Mehta",
+      notes: "Includes exchange briefing and visa readiness clinic"
+    },
+    create: {
+      id: "event-1",
+      title: "Global Mobility Orientation 2026",
+      category: EventCategory.SEMINAR,
+      format: "Hybrid",
+      hostCountry: "India",
+      venue: "Senate Hall, Poornima Campus",
+      organizer: "International Relations Office",
+      registrationDeadline: new Date("2026-06-05"),
+      startDate: new Date("2026-06-10T10:00:00.000Z"),
+      endDate: new Date("2026-06-10T13:00:00.000Z"),
+      status: EventStatus.REGISTRATION_OPEN,
+      capacity: 250,
+      registeredCount: 184,
+      speaker: "Dr. Sofia Mehta",
+      notes: "Includes exchange briefing and visa readiness clinic"
+    }
+  });
+
+  await prisma.internationalEvent.upsert({
+    where: {
+      id: "event-2"
+    },
+    update: {
+      title: "Germany University Delegation Visit",
+      category: EventCategory.DELEGATION_VISIT,
+      format: "In Person",
+      hostCountry: "India",
+      venue: "International Collaboration Boardroom",
+      organizer: "Partnerships and Outreach Cell",
+      registrationDeadline: null,
+      startDate: new Date("2026-07-22T08:30:00.000Z"),
+      endDate: new Date("2026-07-22T17:00:00.000Z"),
+      status: EventStatus.PLANNED,
+      capacity: 40,
+      registeredCount: 18,
+      speaker: "TUM and DAAD Delegation",
+      notes: "Includes campus tour, MoU review, and faculty roundtable"
+    },
+    create: {
+      id: "event-2",
+      title: "Germany University Delegation Visit",
+      category: EventCategory.DELEGATION_VISIT,
+      format: "In Person",
+      hostCountry: "India",
+      venue: "International Collaboration Boardroom",
+      organizer: "Partnerships and Outreach Cell",
+      registrationDeadline: null,
+      startDate: new Date("2026-07-22T08:30:00.000Z"),
+      endDate: new Date("2026-07-22T17:00:00.000Z"),
+      status: EventStatus.PLANNED,
+      capacity: 40,
+      registeredCount: 18,
+      speaker: "TUM and DAAD Delegation",
+      notes: "Includes campus tour, MoU review, and faculty roundtable"
     }
   });
 

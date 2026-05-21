@@ -57,30 +57,30 @@ export default async function ApplicationsPage() {
 
         <Card radius="lg" p="lg" className="border border-white/20 bg-white/5">
           <Table highlightOnHover>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>University</Table.Th>
-                <Table.Th>Country</Table.Th>
-                <Table.Th>Program</Table.Th>
-                <Table.Th>Status</Table.Th>
-                <Table.Th>Deadline</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
+            <thead>
+              <tr>
+                <th>University</th>
+                <th>Country</th>
+                <th>Program</th>
+                <th>Status</th>
+                <th>Deadline</th>
+              </tr>
+            </thead>
+            <tbody>
               {applications.map((item) => (
-                <Table.Tr key={item.id}>
-                  <Table.Td>{item.university}</Table.Td>
-                  <Table.Td>{item.country}</Table.Td>
-                  <Table.Td>{item.program}</Table.Td>
-                  <Table.Td>
+                <tr key={item.id}>
+                  <td>{item.university}</td>
+                  <td>{item.country}</td>
+                  <td>{item.program}</td>
+                  <td>
                     <Badge color={statusColor(item.status)} variant="light">
                       {item.status}
                     </Badge>
-                  </Table.Td>
-                  <Table.Td>{item.deadline}</Table.Td>
-                </Table.Tr>
+                  </td>
+                  <td>{item.deadline}</td>
+                </tr>
               ))}
-            </Table.Tbody>
+            </tbody>
           </Table>
         </Card>
       </Stack>

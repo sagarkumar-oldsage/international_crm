@@ -1,6 +1,11 @@
-import { Badge, Card, Group, Stack, Table, Text, Title } from "@mantine/core";
-import type { DocumentStatusDto, StudentDocumentDto } from "@contracts/index";
-import { getStudentDocuments } from "../../lib/api";
+import { Badge, Card, Group, SimpleGrid, Stack, Table, Text, Title } from "@mantine/core";
+import type {
+  DocumentStatusDto,
+  StudentDocumentDto,
+  StudentDocumentSummaryDto
+} from "@contracts/index";
+import { DocumentWorkflowPanel } from "../../components/document-workflow-panel";
+import { getStudentDocuments, getStudentDocumentSummary } from "../../lib/api";
 
 const fallbackDocuments: StudentDocumentDto[] = [
   {
@@ -25,6 +30,17 @@ const fallbackDocuments: StudentDocumentDto[] = [
   }
 ];
 
+const fallbackSummary: StudentDocumentSummaryDto = {
+  studentId: "student-1",
+  totalDocuments: 2,
+  verifiedDocuments: 1,
+  pendingReviewDocuments: 1,
+  expiredDocuments: 0,
+  expiringSoonDocuments: 0,
+  completionPercentage: 40,
+  missingCategories: ["CV", "MARKSHEET", "FINANCIAL_STATEMENT"]
+};
+
 function statusColor(status: DocumentStatusDto) {
   if (status === "VERIFIED") {
     return "teal";
@@ -39,6 +55,7 @@ function statusColor(status: DocumentStatusDto) {
 
 export default async function DocumentsPage() {
   const documents = (await getStudentDocuments("student-1")) ?? fallbackDocuments;
+  const summary = (await getStudentDocumentSummary("student-1")) ?? fallbackSummary;
 
   return (
     <main className="mx-auto w-full max-w-6xl px-6 py-10 md:px-8">
@@ -57,32 +74,75 @@ export default async function DocumentsPage() {
           </Badge>
         </Group>
 
+        <SimpleGrid cols={{ base: 1, sm: 2, lg: 4 }} spacing="md">
+          <Card radius="lg" p="lg" className="border border-white/20 bg-white/5">
+            <Text c="rgba(255,255,255,0.7)" size="sm">Completion</Text>
+            <Title order={2} c="white">{summary.completionPercentage}%</Title>
+          </Card>
+          <Card radius="lg" p="lg" className="border border-white/20 bg-white/5">
+            <Text c="rgba(255,255,255,0.7)" size="sm">Verified</Text>
+            <Title order={2} c="white">{summary.verifiedDocuments}</Title>
+          </Card>
+          <Card radius="lg" p="lg" className="border border-white/20 bg-white/5">
+            <Text c="rgba(255,255,255,0.7)" size="sm">Pending Review</Text>
+            <Title order={2} c="white">{summary.pendingReviewDocuments}</Title>
+          </Card>
+          <Card radius="lg" p="lg" className="border border-white/20 bg-white/5">
+            <Text c="rgba(255,255,255,0.7)" size="sm">Expiry Alerts</Text>
+            <Title order={2} c="white">{summary.expiredDocuments + summary.expiringSoonDocuments}</Title>
+          </Card>
+        </SimpleGrid>
+
+        <Card radius="lg" p="lg" className="border border-white/20 bg-white/5">
+          <Stack gap="sm">
+            <Group justify="space-between">
+              <Title order={3} c="white">Checklist Gaps</Title>
+              <Badge color="yellow" variant="light">
+                {summary.missingCategories.length} Missing
+              </Badge>
+            </Group>
+            {summary.missingCategories.length > 0 ? (
+              <Group gap="xs">
+                {summary.missingCategories.map((category) => (
+                  <Badge key={category} color="yellow" variant="light">
+                    {category}
+                  </Badge>
+                ))}
+              </Group>
+            ) : (
+              <Text c="rgba(255,255,255,0.75)">All required document categories are uploaded.</Text>
+            )}
+          </Stack>
+        </Card>
+
+        <DocumentWorkflowPanel studentId="student-1" documents={documents} />
+
         <Card radius="lg" p="lg" className="border border-white/20 bg-white/5">
           <Table highlightOnHover>
-            <Table.Thead>
-              <Table.Tr>
-                <Table.Th>Category</Table.Th>
-                <Table.Th>File</Table.Th>
-                <Table.Th>Status</Table.Th>
-                <Table.Th>Expires</Table.Th>
-                <Table.Th>Notes</Table.Th>
-              </Table.Tr>
-            </Table.Thead>
-            <Table.Tbody>
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>File</th>
+                <th>Status</th>
+                <th>Expires</th>
+                <th>Notes</th>
+              </tr>
+            </thead>
+            <tbody>
               {documents.map((document) => (
-                <Table.Tr key={document.id}>
-                  <Table.Td>{document.category}</Table.Td>
-                  <Table.Td>{document.fileName}</Table.Td>
-                  <Table.Td>
+                <tr key={document.id}>
+                  <td>{document.category}</td>
+                  <td>{document.fileName}</td>
+                  <td>
                     <Badge color={statusColor(document.status)} variant="light">
                       {document.status}
                     </Badge>
-                  </Table.Td>
-                  <Table.Td>{document.expiresAt ?? "N/A"}</Table.Td>
-                  <Table.Td>{document.notes ?? "-"}</Table.Td>
-                </Table.Tr>
+                  </td>
+                  <td>{document.expiresAt ?? "N/A"}</td>
+                  <td>{document.notes ?? "-"}</td>
+                </tr>
               ))}
-            </Table.Tbody>
+            </tbody>
           </Table>
         </Card>
       </Stack>

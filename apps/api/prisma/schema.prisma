@@ -55,6 +55,43 @@ enum DocumentStatus {
   EXPIRED
 }
 
+enum VisaStage {
+  NOT_STARTED
+  DOCUMENT_COLLECTION
+  APPOINTMENT_BOOKED
+  BIOMETRICS_COMPLETED
+  INTERVIEW_SCHEDULED
+  UNDER_PROCESS
+  APPROVED
+  REJECTED
+}
+
+enum MouStatus {
+  DRAFT
+  UNDER_REVIEW
+  ACTIVE
+  RENEWAL_DUE
+  EXPIRED
+  ARCHIVED
+}
+
+enum EventCategory {
+  SEMINAR
+  WEBINAR
+  FDP
+  WORKSHOP
+  CONFERENCE
+  DELEGATION_VISIT
+}
+
+enum EventStatus {
+  PLANNED
+  REGISTRATION_OPEN
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
 // Core user model for RBAC + profile extension in later sprints.
 model User {
   id           String          @id @default(cuid())
@@ -78,6 +115,7 @@ model StudentProfile {
   user                   User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   applications           StudentApplication[]
   documents              StudentDocument[]
+  visaCases              VisaCase[]
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
 }
@@ -107,6 +145,60 @@ model StudentDocument {
   studentProfile   StudentProfile   @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
   createdAt        DateTime         @default(now())
   updatedAt        DateTime         @updatedAt
+}
+
+model VisaCase {
+  id                 String       @id @default(cuid())
+  studentProfileId   String
+  country            String
+  visaType           String
+  currentStage       VisaStage
+  appointmentDate    DateTime?
+  biometricsDate     DateTime?
+  interviewDate      DateTime?
+  decisionDate       DateTime?
+  notes              String?
+  studentProfile     StudentProfile @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+  createdAt          DateTime     @default(now())
+  updatedAt          DateTime     @updatedAt
+}
+
+model PartnerUniversity {
+  id                 String      @id @default(cuid())
+  name               String
+  country            String
+  city               String
+  website            String?
+  contactPersonName  String
+  contactPersonEmail String
+  collaborationAreas String[]
+  mouStatus          MouStatus
+  renewalDate        DateTime?
+  mobilityQuota      Int
+  jointPrograms      String[]
+  notes              String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+}
+
+model InternationalEvent {
+  id                   String        @id @default(cuid())
+  title                String
+  category             EventCategory
+  format               String
+  hostCountry          String
+  venue                String
+  organizer            String
+  registrationDeadline DateTime?
+  startDate            DateTime
+  endDate              DateTime
+  status               EventStatus
+  capacity             Int
+  registeredCount      Int
+  speaker              String?
+  notes                String?
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
 }
 
 // Mobility case supports outbound/inbound student journeys.

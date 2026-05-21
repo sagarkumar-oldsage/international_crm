@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const kpis = [
   { label: "Active Mobility Cases", value: "248" },
@@ -77,6 +78,29 @@ export function DashboardShell() {
               </li>
             ))}
           </ul>
+        </section>
+
+        <section className="grid gap-4 md:grid-cols-3">
+          <Link href="/students/profile" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Mobility</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Student Profiles</h2>
+            <p className="mt-2 text-sm text-white/75">Review learner records, preferences, and application readiness.</p>
+          </Link>
+          <Link href="/documents" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Compliance</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Document Operations</h2>
+            <p className="mt-2 text-sm text-white/75">Manage verification queues, expiry alerts, and review workflows.</p>
+          </Link>
+          <Link href="/partnerships" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Institutional CRM</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Partner Universities</h2>
+            <p className="mt-2 text-sm text-white/75">Track MoUs, renewal windows, quotas, and collaboration themes.</p>
+          </Link>
+          <Link href="/events" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Outreach</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Events and Delegations</h2>
+            <p className="mt-2 text-sm text-white/75">Coordinate seminars, conferences, and delegation visit operations.</p>
+          </Link>
         </section>
       </section>
     </main>
