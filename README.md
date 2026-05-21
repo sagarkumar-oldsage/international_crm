@@ -706,3 +706,7 @@ A properly developed platform can become:
 * A national-level EdTech platform
 
 This has very high commercialization potential if developed properly under your university ecosystem and later licensed to other institutions.
+
+
+<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/3c01b96a-c10f-4e2a-85ff-738398c7a6cd" />
+
