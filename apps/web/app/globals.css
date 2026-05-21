@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --brand-100: #2f2fe4;
+  --brand-200: #162e93;
+  --brand-300: #1a1953;
+  --brand-400: #080616;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: radial-gradient(circle at 12% 18%, rgba(47, 47, 228, 0.28), transparent 40%),
+    linear-gradient(140deg, #080616 0%, #1a1953 52%, #162e93 100%);
+  color: #ffffff;
+}
+
+/* Visual atmosphere layers to keep the UI minimalist but distinct. */
+.ambient-orb {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(70px);
+  opacity: 0.4;
+  animation: drift 10s ease-in-out infinite alternate;
+}
+
+.ambient-orb-a {
+  top: -8rem;
+  right: -5rem;
+  width: 20rem;
+  height: 20rem;
+  background: rgba(47, 47, 228, 0.35);
+}
+
+.ambient-orb-b {
+  bottom: -10rem;
+  left: -6rem;
+  width: 23rem;
+  height: 23rem;
+  background: rgba(22, 46, 147, 0.34);
+  animation-delay: 0.9s;
+}
+
+@keyframes drift {
+  from {
+    transform: translateY(0px) translateX(0px);
+  }
+  to {
+    transform: translateY(-18px) translateX(14px);
+  }
+}

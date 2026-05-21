@@ -1,0 +1,24 @@
+{
+  "name": "international-crm-platform",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev -w apps/web",
+    "dev:api": "npm run start:dev -w apps/api",
+    "build": "npm run build -w apps/web && npm run build -w apps/api",
+    "lint": "npm run lint -w apps/web && npm run lint -w apps/api"
+  },
+  "overrides": {
+    "picomatch": "4.0.4",
+    "fdir": {
+      "picomatch": "4.0.4"
+    }
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

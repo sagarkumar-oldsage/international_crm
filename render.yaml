@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: international-crm-api
+    env: node
+    rootDir: apps/api
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    autoDeploy: true
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 8080
+      - key: DATABASE_URL
+        sync: false
+      - key: REDIS_URL
+        sync: false
+      - key: ELASTICSEARCH_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
