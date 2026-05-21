@@ -303,3 +303,12 @@ export interface UpdateTicketStatusDto {
   resolutionNotes?: string;
   dueDate?: string;
 }
+
+export interface AnalyticsOverviewDto {
+  totalStudents: number;
+  activeApplications: number;
+  visaApprovalRate: number;
+  activePartnerships: number;
+  upcomingEvents: number;
+  openSupportTickets: number;
+}

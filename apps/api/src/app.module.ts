@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { HealthController } from "./health/health.controller";
 import { AuthModule } from "./modules/auth/auth.module";
+import { AnalyticsModule } from "./modules/analytics/analytics.module";
 import { ApplicationsModule } from "./modules/applications/applications.module";
 import { CommunicationModule } from "./modules/communication/communication.module";
 import { DocumentsModule } from "./modules/documents/documents.module";
@@ -15,6 +16,7 @@ import { VisaModule } from "./modules/visa/visa.module";
   imports: [
     PrismaModule,
     AuthModule,
+    AnalyticsModule,
     MobilityModule,
     StudentsModule,
     ApplicationsModule,

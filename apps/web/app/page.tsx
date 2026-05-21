@@ -1,6 +1,6 @@
-import { DashboardShell } from "../components/dashboard-shell";
+import { OnePageWebsite } from "../components/onepage-website";
 
-// Landing page doubles as the initial MVP command center.
+// Home route is a concise one-page website that introduces the platform.
 export default function HomePage() {
-  return <DashboardShell />;
+  return <OnePageWebsite />;
 }

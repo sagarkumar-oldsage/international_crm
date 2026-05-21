@@ -7,7 +7,8 @@ const kpis = [
   { label: "Active Mobility Cases", value: "248" },
   { label: "Visa Approvals", value: "91.2%" },
   { label: "Partner Universities", value: "76" },
-  { label: "Pending Documents", value: "39" }
+  { label: "Pending Documents", value: "39" },
+  { label: "Open Support Tickets", value: "18" }
 ];
 
 const mvpModules = [
@@ -37,18 +38,25 @@ export function DashboardShell() {
           className="space-y-4"
         >
           <p className="inline-block rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs tracking-[0.14em] text-white/90 uppercase">
-            International Relations Command Center
+            Integrated Operations Dashboard
           </p>
           <h1 className="max-w-4xl text-3xl font-semibold leading-tight md:text-5xl">
-            Unified Global Mobility Platform for Students, Partnerships, and Compliance
+            International CRM Control Center
           </h1>
           <p className="max-w-3xl text-sm text-white/75 md:text-base">
-            Phase 1 foundation aligned to your architecture: modular frontend, scalable API,
-            and deployment-ready setup for Vercel + Render.
+            All currently built modules are connected here for day-to-day operations and sprint validation.
           </p>
+          <div className="flex flex-wrap gap-3 pt-2">
+            <Link href="/" className="rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
+              One-Page Website
+            </Link>
+            <Link href="/login" className="rounded-xl border border-white/20 bg-white/5 px-4 py-2 text-sm font-semibold text-white transition hover:bg-white/10">
+              Login
+            </Link>
+          </div>
         </motion.header>
 
-        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <section className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {kpis.map((kpi, index) => (
             <motion.article
               key={kpi.label}
@@ -81,15 +89,30 @@ export function DashboardShell() {
         </section>
 
         <section className="grid gap-4 md:grid-cols-3">
+          <Link href="/dashboard" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Overview</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Command Dashboard</h2>
+            <p className="mt-2 text-sm text-white/75">Unified snapshot across mobility, outreach, and support modules.</p>
+          </Link>
           <Link href="/students/profile" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
             <p className="text-xs uppercase tracking-[0.14em] text-white/65">Mobility</p>
             <h2 className="mt-2 text-xl font-semibold text-white">Student Profiles</h2>
             <p className="mt-2 text-sm text-white/75">Review learner records, preferences, and application readiness.</p>
           </Link>
+          <Link href="/applications" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Mobility</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Application Tracking</h2>
+            <p className="mt-2 text-sm text-white/75">Monitor multi-university application progress by status and deadlines.</p>
+          </Link>
           <Link href="/documents" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
             <p className="text-xs uppercase tracking-[0.14em] text-white/65">Compliance</p>
             <h2 className="mt-2 text-xl font-semibold text-white">Document Operations</h2>
             <p className="mt-2 text-sm text-white/75">Manage verification queues, expiry alerts, and review workflows.</p>
+          </Link>
+          <Link href="/visa" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Compliance</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Visa Workflow</h2>
+            <p className="mt-2 text-sm text-white/75">Track interviews, biometrics, milestones, and final visa decisions.</p>
           </Link>
           <Link href="/partnerships" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
             <p className="text-xs uppercase tracking-[0.14em] text-white/65">Institutional CRM</p>
@@ -105,6 +128,11 @@ export function DashboardShell() {
             <p className="text-xs uppercase tracking-[0.14em] text-white/65">Support CRM</p>
             <h2 className="mt-2 text-xl font-semibold text-white">Ticketing and Communication</h2>
             <p className="mt-2 text-sm text-white/75">Handle visa, hostel, documentation, and emergency support requests.</p>
+          </Link>
+          <Link href="/analytics" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">KPI Insights</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Analytics Overview</h2>
+            <p className="mt-2 text-sm text-white/75">Track mobility, partnerships, events, and support metrics in one view.</p>
           </Link>
         </section>
       </section>

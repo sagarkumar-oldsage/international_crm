@@ -1,4 +1,5 @@
 import type {
+  AnalyticsOverviewDto,
   CreateTicketDto,
   CreatePartnerUniversityDto,
   CreateEventDto,
@@ -303,6 +304,13 @@ export const ticketStatusOptions: TicketStatusDto[] = [
   "RESOLVED",
   "CLOSED"
 ];
+
+export async function getAnalyticsOverview(): Promise<AnalyticsOverviewDto | null> {
+  return requestJson<AnalyticsOverviewDto>(`${API_BASE}/analytics/overview`, {
+    headers: getReadHeaders(),
+    cache: "no-store"
+  });
+}
 
 
 
