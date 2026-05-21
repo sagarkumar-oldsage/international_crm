@@ -13,7 +13,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post("login")
-  login(@Body() payload: LoginDto) {
+  async login(@Body() payload: LoginDto) {
     return this.authService.login(payload);
   }
 

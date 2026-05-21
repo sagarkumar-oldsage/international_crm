@@ -5,7 +5,7 @@ services:
     rootDir: apps/api
     plan: starter
     buildCommand: npm install && npm run build
-    startCommand: npm run start
+    startCommand: npm run start:deploy
     autoDeploy: true
     healthCheckPath: /api/v1/health
     envVars:
@@ -18,6 +18,8 @@ services:
       - key: REDIS_URL
         sync: false
       - key: ELASTICSEARCH_URL
+        sync: false
+      - key: JWT_SECRET
         sync: false
       - key: CORS_ORIGIN
         sync: false

@@ -1,7 +1,8 @@
 import { Badge, Card, Group, Stack, Table, Text, Title } from "@mantine/core";
+import type { ApplicationStatusDto, StudentApplicationDto } from "@contracts/index";
 import { getStudentApplications } from "../../lib/api";
 
-const fallbackApplications = [
+const fallbackApplications: StudentApplicationDto[] = [
   {
     id: "app-1",
     studentId: "student-1",
@@ -22,7 +23,7 @@ const fallbackApplications = [
   }
 ];
 
-function statusColor(status: string) {
+function statusColor(status: ApplicationStatusDto) {
   if (status === "VISA_APPROVED" || status === "ENROLLMENT_COMPLETED") {
     return "teal";
   }

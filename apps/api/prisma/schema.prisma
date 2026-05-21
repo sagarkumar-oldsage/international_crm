@@ -7,14 +7,106 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  SUPER_ADMIN
+  IR_DIRECTOR
+  IR_COORDINATOR
+  DEPARTMENT_COORDINATOR
+  FACULTY_MENTOR
+  ADMISSION_TEAM
+  VISA_TEAM
+  FINANCE_TEAM
+  EVENT_MANAGER
+  OUTBOUND_STUDENT
+  INCOMING_STUDENT
+  PARTNER_REPRESENTATIVE
+}
+
+enum ApplicationStatus {
+  APPLIED
+  UNDER_REVIEW
+  INTERVIEW_SCHEDULED
+  OFFER_RECEIVED
+  CONDITIONAL_OFFER
+  REJECTED
+  VISA_APPROVED
+  ENROLLMENT_COMPLETED
+}
+
+enum DocumentCategory {
+  PASSPORT
+  VISA
+  MARKSHEET
+  DEGREE_CERTIFICATE
+  SOP
+  LOR
+  CV
+  FINANCIAL_STATEMENT
+  INSURANCE
+  OFFER_LETTER
+  ACCEPTANCE_LETTER
+}
+
+enum DocumentStatus {
+  MISSING
+  PENDING_REVIEW
+  VERIFIED
+  REJECTED
+  EXPIRED
+}
+
 // Core user model for RBAC + profile extension in later sprints.
 model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  fullName  String
-  role      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String          @id @default(cuid())
+  email        String          @unique
+  fullName     String
+  passwordHash String
+  role         UserRole
+  studentProfile StudentProfile?
+  createdAt    DateTime        @default(now())
+  updatedAt    DateTime        @updatedAt
+}
+
+model StudentProfile {
+  id                     String               @id @default(cuid())
+  userId                 String               @unique
+  program                String
+  cgpa                   Decimal              @db.Decimal(3, 2)
+  languageScore          String
+  destinationPreferences String[]
+  budgetBand             String
+  user                   User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
+  applications           StudentApplication[]
+  documents              StudentDocument[]
+  createdAt              DateTime             @default(now())
+  updatedAt              DateTime             @updatedAt
+}
+
+model StudentApplication {
+  id               String            @id @default(cuid())
+  studentProfileId String
+  university       String
+  country          String
+  program          String
+  status           ApplicationStatus
+  deadline         DateTime
+  studentProfile   StudentProfile    @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model StudentDocument {
+  id               String           @id @default(cuid())
+  studentProfileId String
+  category         DocumentCategory
+  fileName         String
+  storagePath      String
+  status           DocumentStatus
+  expiresAt        DateTime?
+  notes            String?
+  studentProfile   StudentProfile   @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+  createdAt        DateTime         @default(now())
+  updatedAt        DateTime         @updatedAt
 }
 
 // Mobility case supports outbound/inbound student journeys.

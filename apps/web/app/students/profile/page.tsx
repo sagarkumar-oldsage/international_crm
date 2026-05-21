@@ -1,7 +1,8 @@
 import { Badge, Card, Group, Stack, Text, Title } from "@mantine/core";
+import type { StudentProfileDto } from "@contracts/index";
 import { getStudentProfile } from "../../../lib/api";
 
-const fallbackProfile = {
+const fallbackProfile: StudentProfileDto = {
   id: "student-1",
   fullName: "Aarav Sharma",
   email: "student@internationalcrm.edu",

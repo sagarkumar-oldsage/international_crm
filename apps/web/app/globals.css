@@ -1,6 +1,12 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-brand-100: #2f2fe4;
+  --color-brand-200: #162e93;
+  --color-brand-300: #1a1953;
+  --color-brand-400: #080616;
+  --shadow-soft: 0 20px 45px -28px rgba(8, 6, 22, 0.6);
+}
 
 :root {
   --brand-100: #2f2fe4;

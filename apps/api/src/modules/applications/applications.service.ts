@@ -1,31 +1,29 @@
 import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
 import { ApplicationDto } from "./dto/application.dto";
 
 @Injectable()
 export class ApplicationsService {
-  // Seed application list mirrors the MVP admission workflow states.
-  private readonly applications: ApplicationDto[] = [
-    {
-      id: "app-1",
-      studentId: "student-1",
-      university: "Technical University of Munich",
-      country: "Germany",
-      program: "Data Engineering",
-      status: "UNDER_REVIEW",
-      deadline: "2026-08-12"
-    },
-    {
-      id: "app-2",
-      studentId: "student-1",
-      university: "University of Toronto",
-      country: "Canada",
-      program: "AI and Systems",
-      status: "INTERVIEW_SCHEDULED",
-      deadline: "2026-09-02"
-    }
-  ];
+  constructor(private readonly prismaService: PrismaService) {}
 
-  listByStudent(studentId: string): ApplicationDto[] {
-    return this.applications.filter((item) => item.studentId === studentId);
+  async listByStudent(studentId: string): Promise<ApplicationDto[]> {
+    const applications = await this.prismaService.studentApplication.findMany({
+      where: {
+        studentProfileId: studentId
+      },
+      orderBy: {
+        deadline: "asc"
+      }
+    });
+
+    return applications.map((application) => ({
+      id: application.id,
+      studentId: application.studentProfileId,
+      university: application.university,
+      country: application.country,
+      program: application.program,
+      status: application.status,
+      deadline: application.deadline.toISOString().slice(0, 10)
+    }));
   }
 }

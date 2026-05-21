@@ -1,27 +1,34 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
 import { StudentProfileDto } from "./dto/student-profile.dto";
 
 @Injectable()
 export class StudentsService {
-  // Temporary in-memory profile until database persistence is connected.
-  private readonly profiles: StudentProfileDto[] = [
-    {
-      id: "student-1",
-      fullName: "Aarav Sharma",
-      email: "student@internationalcrm.edu",
-      program: "B.Tech Computer Science",
-      cgpa: 8.7,
-      languageScore: "IELTS 7.5",
-      destinationPreferences: ["Germany", "Canada", "Japan"],
-      budgetBand: "Medium"
-    }
-  ];
+  constructor(private readonly prismaService: PrismaService) {}
 
-  getProfile(studentId: string): StudentProfileDto {
-    const profile = this.profiles.find((item) => item.id === studentId);
+  async getProfile(studentId: string): Promise<StudentProfileDto> {
+    const profile = await this.prismaService.studentProfile.findUnique({
+      where: {
+        id: studentId
+      },
+      include: {
+        user: true
+      }
+    });
+
     if (!profile) {
       throw new NotFoundException("Student profile not found");
     }
-    return profile;
+
+    return {
+      id: profile.id,
+      fullName: profile.user.fullName,
+      email: profile.user.email,
+      program: profile.program,
+      cgpa: Number(profile.cgpa),
+      languageScore: profile.languageScore,
+      destinationPreferences: profile.destinationPreferences,
+      budgetBand: profile.budgetBand
+    };
   }
 }
