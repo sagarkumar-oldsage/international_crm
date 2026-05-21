@@ -101,6 +101,11 @@ export function DashboardShell() {
             <h2 className="mt-2 text-xl font-semibold text-white">Events and Delegations</h2>
             <p className="mt-2 text-sm text-white/75">Coordinate seminars, conferences, and delegation visit operations.</p>
           </Link>
+          <Link href="/communication" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Support CRM</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Ticketing and Communication</h2>
+            <p className="mt-2 text-sm text-white/75">Handle visa, hostel, documentation, and emergency support requests.</p>
+          </Link>
         </section>
       </section>
     </main>

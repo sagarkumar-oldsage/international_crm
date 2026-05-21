@@ -2,6 +2,7 @@ import { Module } from "@nestjs/common";
 import { HealthController } from "./health/health.controller";
 import { AuthModule } from "./modules/auth/auth.module";
 import { ApplicationsModule } from "./modules/applications/applications.module";
+import { CommunicationModule } from "./modules/communication/communication.module";
 import { DocumentsModule } from "./modules/documents/documents.module";
 import { EventsModule } from "./modules/events/events.module";
 import { PrismaModule } from "./prisma/prisma.module";
@@ -17,6 +18,7 @@ import { VisaModule } from "./modules/visa/visa.module";
     MobilityModule,
     StudentsModule,
     ApplicationsModule,
+    CommunicationModule,
     DocumentsModule,
     VisaModule,
     PartnershipsModule,

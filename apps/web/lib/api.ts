@@ -1,4 +1,5 @@
 import type {
+  CreateTicketDto,
   CreatePartnerUniversityDto,
   CreateEventDto,
   CreateStudentDocumentDto,
@@ -9,9 +10,15 @@ import type {
   MouStatusDto,
   PartnerUniversityDto,
   PartnershipsSummaryDto,
+  SupportTicketDto,
   StudentVisaCaseDto,
   StudentVisaSummaryDto,
+  TicketCategoryDto,
+  TicketPriorityDto,
+  TicketStatusDto,
+  TicketSummaryDto,
   UpdateEventStatusDto,
+  UpdateTicketStatusDto,
   UpdateVisaCaseDto,
   UpdatePartnerMouStatusDto,
   UpdateStudentDocumentStatusDto,
@@ -243,6 +250,58 @@ export const eventStatusOptions: EventStatusDto[] = [
   "IN_PROGRESS",
   "COMPLETED",
   "CANCELLED"
+];
+
+export async function getSupportTickets(): Promise<SupportTicketDto[] | null> {
+  return requestJson<SupportTicketDto[]>(`${API_BASE}/communication/tickets`, {
+    headers: getReadHeaders(),
+    cache: "no-store"
+  });
+}
+
+export async function getTicketSummary(): Promise<TicketSummaryDto | null> {
+  return requestJson<TicketSummaryDto>(`${API_BASE}/communication/tickets/summary`, {
+    headers: getReadHeaders(),
+    cache: "no-store"
+  });
+}
+
+export async function createSupportTicket(payload: CreateTicketDto): Promise<SupportTicketDto | null> {
+  return requestJson<SupportTicketDto>(`${API_BASE}/communication/tickets`, {
+    method: "POST",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(payload)
+  });
+}
+
+export async function updateSupportTicketStatus(
+  ticketId: string,
+  payload: UpdateTicketStatusDto
+): Promise<SupportTicketDto | null> {
+  return requestJson<SupportTicketDto>(`${API_BASE}/communication/tickets/${ticketId}/status`, {
+    method: "PATCH",
+    headers: getAuthHeaders(),
+    body: JSON.stringify(payload)
+  });
+}
+
+export const ticketCategoryOptions: TicketCategoryDto[] = [
+  "VISA_ISSUE",
+  "HOSTEL_ISSUE",
+  "DOCUMENTATION_ISSUE",
+  "EMERGENCY_REQUEST",
+  "SCHOLARSHIP_QUERY",
+  "GENERAL_SUPPORT"
+];
+
+export const ticketPriorityOptions: TicketPriorityDto[] = ["LOW", "MEDIUM", "HIGH", "CRITICAL"];
+
+export const ticketStatusOptions: TicketStatusDto[] = [
+  "OPEN",
+  "IN_PROGRESS",
+  "ON_HOLD",
+  "RESOLVED",
+  "CLOSED"
 ];
 
 

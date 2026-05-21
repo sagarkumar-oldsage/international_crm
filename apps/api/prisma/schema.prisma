@@ -92,6 +92,30 @@ enum EventStatus {
   CANCELLED
 }
 
+enum TicketCategory {
+  VISA_ISSUE
+  HOSTEL_ISSUE
+  DOCUMENTATION_ISSUE
+  EMERGENCY_REQUEST
+  SCHOLARSHIP_QUERY
+  GENERAL_SUPPORT
+}
+
+enum TicketPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum TicketStatus {
+  OPEN
+  IN_PROGRESS
+  ON_HOLD
+  RESOLVED
+  CLOSED
+}
+
 // Core user model for RBAC + profile extension in later sprints.
 model User {
   id           String          @id @default(cuid())
@@ -199,6 +223,23 @@ model InternationalEvent {
   notes                String?
   createdAt            DateTime      @default(now())
   updatedAt            DateTime      @updatedAt
+}
+
+model SupportTicket {
+  id               String         @id @default(cuid())
+  studentProfileId String?
+  raisedByName     String
+  raisedByEmail    String
+  category         TicketCategory
+  subject          String
+  description      String
+  priority         TicketPriority
+  status           TicketStatus
+  assignedTeam     String?
+  resolutionNotes  String?
+  dueDate          DateTime?
+  createdAt        DateTime       @default(now())
+  updatedAt        DateTime       @updatedAt
 }
 
 // Mobility case supports outbound/inbound student journeys.

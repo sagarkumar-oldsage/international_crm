@@ -7,6 +7,9 @@ import {
   EventStatus,
   MouStatus,
   PrismaClient,
+  TicketCategory,
+  TicketPriority,
+  TicketStatus,
   UserRole,
   VisaStage
 } from "@prisma/client";
@@ -346,6 +349,72 @@ async function main() {
       registeredCount: 18,
       speaker: "TUM and DAAD Delegation",
       notes: "Includes campus tour, MoU review, and faculty roundtable"
+    }
+  });
+
+  await prisma.supportTicket.upsert({
+    where: {
+      id: "ticket-1"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      raisedByName: "Aarav Sharma",
+      raisedByEmail: "student@internationalcrm.edu",
+      category: TicketCategory.VISA_ISSUE,
+      subject: "Appointment slot reschedule support",
+      description: "Need guidance on embassy appointment rescheduling after exam overlap.",
+      priority: TicketPriority.HIGH,
+      status: TicketStatus.IN_PROGRESS,
+      assignedTeam: "Visa Team",
+      resolutionNotes: null,
+      dueDate: new Date("2026-06-02")
+    },
+    create: {
+      id: "ticket-1",
+      studentProfileId: studentProfile.id,
+      raisedByName: "Aarav Sharma",
+      raisedByEmail: "student@internationalcrm.edu",
+      category: TicketCategory.VISA_ISSUE,
+      subject: "Appointment slot reschedule support",
+      description: "Need guidance on embassy appointment rescheduling after exam overlap.",
+      priority: TicketPriority.HIGH,
+      status: TicketStatus.IN_PROGRESS,
+      assignedTeam: "Visa Team",
+      resolutionNotes: null,
+      dueDate: new Date("2026-06-02")
+    }
+  });
+
+  await prisma.supportTicket.upsert({
+    where: {
+      id: "ticket-2"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      raisedByName: "Aarav Sharma",
+      raisedByEmail: "student@internationalcrm.edu",
+      category: TicketCategory.DOCUMENTATION_ISSUE,
+      subject: "LOR format clarification",
+      description: "Need university-specific LOR template confirmation for TUM application.",
+      priority: TicketPriority.MEDIUM,
+      status: TicketStatus.OPEN,
+      assignedTeam: "Documentation Desk",
+      resolutionNotes: null,
+      dueDate: new Date("2026-06-06")
+    },
+    create: {
+      id: "ticket-2",
+      studentProfileId: studentProfile.id,
+      raisedByName: "Aarav Sharma",
+      raisedByEmail: "student@internationalcrm.edu",
+      category: TicketCategory.DOCUMENTATION_ISSUE,
+      subject: "LOR format clarification",
+      description: "Need university-specific LOR template confirmation for TUM application.",
+      priority: TicketPriority.MEDIUM,
+      status: TicketStatus.OPEN,
+      assignedTeam: "Documentation Desk",
+      resolutionNotes: null,
+      dueDate: new Date("2026-06-06")
     }
   });
 
