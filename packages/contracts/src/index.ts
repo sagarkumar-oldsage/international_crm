@@ -312,3 +312,342 @@ export interface AnalyticsOverviewDto {
   upcomingEvents: number;
   openSupportTickets: number;
 }
+
+export type SupportRequestCategoryDto =
+  | "PRE_ARRIVAL"
+  | "POST_ARRIVAL"
+  | "HOSTEL"
+  | "MEDICAL"
+  | "CAMPUS_ONBOARDING"
+  | "CULTURAL_ADAPTATION";
+
+export type SupportRequestStatusDto =
+  | "REQUESTED"
+  | "IN_REVIEW"
+  | "ACTION_IN_PROGRESS"
+  | "COMPLETED"
+  | "CANCELLED";
+
+export interface SupportRequestDto {
+  id: string;
+  studentProfileId: string;
+  category: SupportRequestCategoryDto;
+  title: string;
+  details: string;
+  status: SupportRequestStatusDto;
+  assignedTeam: string | null;
+  appointmentDate: string | null;
+  completionNotes: string | null;
+}
+
+export interface SupportRequestSummaryDto {
+  totalRequests: number;
+  openRequests: number;
+  preArrivalRequests: number;
+  postArrivalRequests: number;
+  completedRequests: number;
+}
+
+export interface CreateSupportRequestDto {
+  studentProfileId: string;
+  category: SupportRequestCategoryDto;
+  title: string;
+  details: string;
+  assignedTeam?: string;
+}
+
+export interface UpdateSupportRequestDto {
+  status: SupportRequestStatusDto;
+  assignedTeam?: string;
+  appointmentDate?: string;
+  completionNotes?: string;
+}
+
+export type FinanceItemTypeDto =
+  | "TUITION"
+  | "HOSTEL"
+  | "INSURANCE"
+  | "VISA_FEES"
+  | "TRAVEL"
+  | "SCHOLARSHIP_DISBURSEMENT"
+  | "OTHER";
+
+export type FinanceRecordStatusDto = "PENDING" | "PARTIALLY_PAID" | "PAID" | "OVERDUE" | "WAIVED";
+
+export interface StudentFinanceRecordDto {
+  id: string;
+  studentProfileId: string;
+  itemType: FinanceItemTypeDto;
+  label: string;
+  amount: number;
+  currency: string;
+  status: FinanceRecordStatusDto;
+  dueDate: string;
+  paidDate: string | null;
+  notes: string | null;
+}
+
+export type ScholarshipStatusDto =
+  | "IDENTIFIED"
+  | "APPLIED"
+  | "UNDER_REVIEW"
+  | "AWARDED"
+  | "DISBURSED"
+  | "REJECTED";
+
+export interface ScholarshipCaseDto {
+  id: string;
+  studentProfileId: string;
+  scholarshipName: string;
+  providerName: string;
+  amount: number;
+  currency: string;
+  status: ScholarshipStatusDto;
+  deadline: string | null;
+  awardedDate: string | null;
+  disbursedDate: string | null;
+  notes: string | null;
+}
+
+export interface FinanceScholarshipSummaryDto {
+  totalPayableAmount: number;
+  totalPaidAmount: number;
+  pendingAmount: number;
+  activeScholarships: number;
+  awardedScholarshipAmount: number;
+}
+
+export interface CreateStudentFinanceRecordDto {
+  studentProfileId: string;
+  itemType: FinanceItemTypeDto;
+  label: string;
+  amount: number;
+  currency: string;
+  dueDate: string;
+  notes?: string;
+}
+
+export interface CreateScholarshipCaseDto {
+  studentProfileId: string;
+  scholarshipName: string;
+  providerName: string;
+  amount: number;
+  currency: string;
+  status: ScholarshipStatusDto;
+  deadline?: string;
+  notes?: string;
+}
+
+export interface UpdateStudentFinanceRecordStatusDto {
+  status: FinanceRecordStatusDto;
+  paidDate?: string;
+  notes?: string;
+}
+
+export interface UpdateScholarshipCaseStatusDto {
+  status: ScholarshipStatusDto;
+  awardedDate?: string;
+  disbursedDate?: string;
+  notes?: string;
+}
+
+export type AutomationRuleStatusDto = "ACTIVE" | "PAUSED";
+
+export interface AutomationRuleDto {
+  id: string;
+  name: string;
+  trigger: string;
+  action: string;
+  status: AutomationRuleStatusDto;
+  lastRunAt: string | null;
+  successRate: number;
+}
+
+export type RecommendationPriorityDto = "LOW" | "MEDIUM" | "HIGH";
+
+export type RecommendationStatusDto = "OPEN" | "ACCEPTED" | "DISMISSED" | "IMPLEMENTED";
+
+export interface AiRecommendationDto {
+  id: string;
+  studentProfileId: string;
+  title: string;
+  reason: string;
+  priority: RecommendationPriorityDto;
+  status: RecommendationStatusDto;
+  generatedAt: string;
+}
+
+export interface AiAutomationSummaryDto {
+  activeRules: number;
+  openRecommendations: number;
+  implementedRecommendations: number;
+  averageSuccessRate: number;
+}
+
+export interface CreateRecommendationDto {
+  studentProfileId: string;
+  title: string;
+  reason: string;
+  priority: RecommendationPriorityDto;
+}
+
+export interface UpdateRecommendationStatusDto {
+  status: RecommendationStatusDto;
+}
+
+export interface KnowledgeArticleDto {
+  id: string;
+  title: string;
+  category: string;
+  audience: string;
+  readTimeMinutes: number;
+  updatedAt: string;
+}
+
+export type LearningTrackStatusDto = "NOT_STARTED" | "IN_PROGRESS" | "COMPLETED";
+
+export interface LearningTrackDto {
+  id: string;
+  studentProfileId: string;
+  title: string;
+  progressPercentage: number;
+  mandatory: boolean;
+  status: LearningTrackStatusDto;
+}
+
+export interface KnowledgeSummaryDto {
+  articlesPublished: number;
+  mandatoryTracks: number;
+  completedTracks: number;
+  averageProgress: number;
+}
+
+export interface CreateKnowledgeArticleDto {
+  title: string;
+  category: string;
+  audience: string;
+  readTimeMinutes: number;
+}
+
+export interface UpdateLearningTrackDto {
+  progressPercentage: number;
+  status: LearningTrackStatusDto;
+}
+
+export interface MobileAnnouncementDto {
+  id: string;
+  title: string;
+  body: string;
+  audience: string;
+  publishedAt: string;
+}
+
+export type MobileFeedbackStatusDto = "NEW" | "UNDER_REVIEW" | "PLANNED" | "RESOLVED";
+
+export interface MobileFeedbackDto {
+  id: string;
+  studentProfileId: string;
+  featureArea: string;
+  feedback: string;
+  rating: number;
+  status: MobileFeedbackStatusDto;
+  createdAt: string;
+}
+
+export interface MobileExperienceSummaryDto {
+  activeAnnouncements: number;
+  feedbackTickets: number;
+  averageRating: number;
+  resolvedFeedback: number;
+}
+
+export interface CreateMobileFeedbackDto {
+  studentProfileId: string;
+  featureArea: string;
+  feedback: string;
+  rating: number;
+}
+
+export interface UpdateMobileFeedbackStatusDto {
+  status: MobileFeedbackStatusDto;
+}
+
+export type DiscoveryFitLevelDto = "HIGH" | "MEDIUM" | "EMERGING";
+
+export interface UniversityDiscoveryDto {
+  id: string;
+  universityName: string;
+  country: string;
+  program: string;
+  tuitionEstimate: number;
+  fitLevel: DiscoveryFitLevelDto;
+  intake: string;
+}
+
+export type DiscoveryShortlistStatusDto = "SHORTLISTED" | "APPLIED" | "ARCHIVED";
+
+export interface DiscoveryShortlistDto {
+  id: string;
+  studentProfileId: string;
+  universityId: string;
+  universityName: string;
+  status: DiscoveryShortlistStatusDto;
+  notes: string | null;
+}
+
+export interface DiscoverySummaryDto {
+  availableUniversities: number;
+  highFitMatches: number;
+  shortlisted: number;
+  applied: number;
+}
+
+export interface CreateShortlistDto {
+  studentProfileId: string;
+  universityId: string;
+  notes?: string;
+}
+
+export interface UpdateShortlistStatusDto {
+  status: DiscoveryShortlistStatusDto;
+  notes?: string;
+}
+
+export type InitiativeTrendDto = "UP" | "STABLE" | "DOWN";
+
+export interface InstitutionalKpiDto {
+  id: string;
+  metric: string;
+  value: string;
+  trend: InitiativeTrendDto;
+}
+
+export type InitiativeStatusDto = "PLANNED" | "IN_PROGRESS" | "AT_RISK" | "COMPLETED";
+
+export interface InstitutionalInitiativeDto {
+  id: string;
+  title: string;
+  owner: string;
+  targetDate: string;
+  status: InitiativeStatusDto;
+  notes: string | null;
+}
+
+export interface InstitutionalSummaryDto {
+  totalInitiatives: number;
+  inProgress: number;
+  atRisk: number;
+  completed: number;
+}
+
+export interface CreateInitiativeDto {
+  title: string;
+  owner: string;
+  targetDate: string;
+  notes: string;
+}
+
+export interface UpdateInitiativeStatusDto {
+  status: InitiativeStatusDto;
+  notes?: string;
+}

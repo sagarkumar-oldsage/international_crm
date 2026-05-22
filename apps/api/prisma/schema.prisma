@@ -116,6 +116,50 @@ enum TicketStatus {
   CLOSED
 }
 
+enum SupportRequestCategory {
+  PRE_ARRIVAL
+  POST_ARRIVAL
+  HOSTEL
+  MEDICAL
+  CAMPUS_ONBOARDING
+  CULTURAL_ADAPTATION
+}
+
+enum SupportRequestStatus {
+  REQUESTED
+  IN_REVIEW
+  ACTION_IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum FinanceItemType {
+  TUITION
+  HOSTEL
+  INSURANCE
+  VISA_FEES
+  TRAVEL
+  SCHOLARSHIP_DISBURSEMENT
+  OTHER
+}
+
+enum FinanceRecordStatus {
+  PENDING
+  PARTIALLY_PAID
+  PAID
+  OVERDUE
+  WAIVED
+}
+
+enum ScholarshipStatus {
+  IDENTIFIED
+  APPLIED
+  UNDER_REVIEW
+  AWARDED
+  DISBURSED
+  REJECTED
+}
+
 // Core user model for RBAC + profile extension in later sprints.
 model User {
   id           String          @id @default(cuid())
@@ -140,6 +184,9 @@ model StudentProfile {
   applications           StudentApplication[]
   documents              StudentDocument[]
   visaCases              VisaCase[]
+  supportRequests        InternationalSupportRequest[]
+  financeRecords         StudentFinanceRecord[]
+  scholarshipCases       ScholarshipCase[]
   createdAt              DateTime             @default(now())
   updatedAt              DateTime             @updatedAt
 }
@@ -240,6 +287,54 @@ model SupportTicket {
   dueDate          DateTime?
   createdAt        DateTime       @default(now())
   updatedAt        DateTime       @updatedAt
+}
+
+model InternationalSupportRequest {
+  id               String               @id @default(cuid())
+  studentProfileId String
+  category         SupportRequestCategory
+  title            String
+  details          String
+  status           SupportRequestStatus
+  assignedTeam     String?
+  appointmentDate  DateTime?
+  completionNotes  String?
+  studentProfile   StudentProfile       @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+  createdAt        DateTime             @default(now())
+  updatedAt        DateTime             @updatedAt
+}
+
+model StudentFinanceRecord {
+  id               String            @id @default(cuid())
+  studentProfileId String
+  itemType         FinanceItemType
+  label            String
+  amount           Decimal           @db.Decimal(10, 2)
+  currency         String
+  status           FinanceRecordStatus
+  dueDate          DateTime
+  paidDate         DateTime?
+  notes            String?
+  studentProfile   StudentProfile    @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+}
+
+model ScholarshipCase {
+  id               String            @id @default(cuid())
+  studentProfileId String
+  scholarshipName  String
+  providerName     String
+  amount           Decimal           @db.Decimal(10, 2)
+  currency         String
+  status           ScholarshipStatus
+  deadline         DateTime?
+  awardedDate      DateTime?
+  disbursedDate    DateTime?
+  notes            String?
+  studentProfile   StudentProfile    @relation(fields: [studentProfileId], references: [id], onDelete: Cascade)
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
 }
 
 // Mobility case supports outbound/inbound student journeys.

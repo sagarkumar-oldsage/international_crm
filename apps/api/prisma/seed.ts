@@ -5,11 +5,16 @@ import {
   DocumentStatus,
   EventCategory,
   EventStatus,
+  FinanceItemType,
+  FinanceRecordStatus,
   MouStatus,
   PrismaClient,
+  ScholarshipStatus,
   TicketCategory,
   TicketPriority,
   TicketStatus,
+  SupportRequestCategory,
+  SupportRequestStatus,
   UserRole,
   VisaStage
 } from "@prisma/client";
@@ -415,6 +420,180 @@ async function main() {
       assignedTeam: "Documentation Desk",
       resolutionNotes: null,
       dueDate: new Date("2026-06-06")
+    }
+  });
+
+  await prisma.internationalSupportRequest.upsert({
+    where: {
+      id: "support-1"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      category: SupportRequestCategory.PRE_ARRIVAL,
+      title: "Airport pickup request",
+      details: "Need pickup from Jaipur International Airport on 2026-07-14.",
+      status: SupportRequestStatus.IN_REVIEW,
+      assignedTeam: "International Student Desk",
+      appointmentDate: new Date("2026-07-14T09:30:00.000Z"),
+      completionNotes: null
+    },
+    create: {
+      id: "support-1",
+      studentProfileId: studentProfile.id,
+      category: SupportRequestCategory.PRE_ARRIVAL,
+      title: "Airport pickup request",
+      details: "Need pickup from Jaipur International Airport on 2026-07-14.",
+      status: SupportRequestStatus.IN_REVIEW,
+      assignedTeam: "International Student Desk",
+      appointmentDate: new Date("2026-07-14T09:30:00.000Z"),
+      completionNotes: null
+    }
+  });
+
+  await prisma.internationalSupportRequest.upsert({
+    where: {
+      id: "support-2"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      category: SupportRequestCategory.CAMPUS_ONBOARDING,
+      title: "Orientation and local registration support",
+      details: "Need help with FRRO local registration and orientation schedule.",
+      status: SupportRequestStatus.REQUESTED,
+      assignedTeam: "Onboarding Cell",
+      appointmentDate: null,
+      completionNotes: null
+    },
+    create: {
+      id: "support-2",
+      studentProfileId: studentProfile.id,
+      category: SupportRequestCategory.CAMPUS_ONBOARDING,
+      title: "Orientation and local registration support",
+      details: "Need help with FRRO local registration and orientation schedule.",
+      status: SupportRequestStatus.REQUESTED,
+      assignedTeam: "Onboarding Cell",
+      appointmentDate: null,
+      completionNotes: null
+    }
+  });
+
+  await prisma.studentFinanceRecord.upsert({
+    where: {
+      id: "finance-1"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      itemType: FinanceItemType.TUITION,
+      label: "Semester 1 Tuition Fee",
+      amount: 12800,
+      currency: "EUR",
+      status: FinanceRecordStatus.PENDING,
+      dueDate: new Date("2026-08-20"),
+      paidDate: null,
+      notes: "Eligible for 15% early scholarship adjustment"
+    },
+    create: {
+      id: "finance-1",
+      studentProfileId: studentProfile.id,
+      itemType: FinanceItemType.TUITION,
+      label: "Semester 1 Tuition Fee",
+      amount: 12800,
+      currency: "EUR",
+      status: FinanceRecordStatus.PENDING,
+      dueDate: new Date("2026-08-20"),
+      paidDate: null,
+      notes: "Eligible for 15% early scholarship adjustment"
+    }
+  });
+
+  await prisma.studentFinanceRecord.upsert({
+    where: {
+      id: "finance-2"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      itemType: FinanceItemType.INSURANCE,
+      label: "Mandatory Student Insurance",
+      amount: 680,
+      currency: "EUR",
+      status: FinanceRecordStatus.PAID,
+      dueDate: new Date("2026-07-15"),
+      paidDate: new Date("2026-07-08"),
+      notes: "Policy attached in document vault"
+    },
+    create: {
+      id: "finance-2",
+      studentProfileId: studentProfile.id,
+      itemType: FinanceItemType.INSURANCE,
+      label: "Mandatory Student Insurance",
+      amount: 680,
+      currency: "EUR",
+      status: FinanceRecordStatus.PAID,
+      dueDate: new Date("2026-07-15"),
+      paidDate: new Date("2026-07-08"),
+      notes: "Policy attached in document vault"
+    }
+  });
+
+  await prisma.scholarshipCase.upsert({
+    where: {
+      id: "scholarship-1"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      scholarshipName: "Global Merit Scholarship",
+      providerName: "Technical University of Munich",
+      amount: 5400,
+      currency: "EUR",
+      status: ScholarshipStatus.UNDER_REVIEW,
+      deadline: new Date("2026-07-25"),
+      awardedDate: null,
+      disbursedDate: null,
+      notes: "Interview round planned with scholarship committee"
+    },
+    create: {
+      id: "scholarship-1",
+      studentProfileId: studentProfile.id,
+      scholarshipName: "Global Merit Scholarship",
+      providerName: "Technical University of Munich",
+      amount: 5400,
+      currency: "EUR",
+      status: ScholarshipStatus.UNDER_REVIEW,
+      deadline: new Date("2026-07-25"),
+      awardedDate: null,
+      disbursedDate: null,
+      notes: "Interview round planned with scholarship committee"
+    }
+  });
+
+  await prisma.scholarshipCase.upsert({
+    where: {
+      id: "scholarship-2"
+    },
+    update: {
+      studentProfileId: studentProfile.id,
+      scholarshipName: "DAAD Mobility Grant",
+      providerName: "DAAD",
+      amount: 2200,
+      currency: "EUR",
+      status: ScholarshipStatus.AWARDED,
+      deadline: new Date("2026-06-30"),
+      awardedDate: new Date("2026-07-04"),
+      disbursedDate: null,
+      notes: "Disbursement expected after university enrollment confirmation"
+    },
+    create: {
+      id: "scholarship-2",
+      studentProfileId: studentProfile.id,
+      scholarshipName: "DAAD Mobility Grant",
+      providerName: "DAAD",
+      amount: 2200,
+      currency: "EUR",
+      status: ScholarshipStatus.AWARDED,
+      deadline: new Date("2026-06-30"),
+      awardedDate: new Date("2026-07-04"),
+      disbursedDate: null,
+      notes: "Disbursement expected after university enrollment confirmation"
     }
   });
 

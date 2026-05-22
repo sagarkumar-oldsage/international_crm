@@ -18,6 +18,12 @@ const mvpModules = [
   "Visa Tracking",
   "Event Management",
   "International Student Support",
+  "Finance and Scholarship",
+  "AI and Automation",
+  "Knowledge Base and Learning",
+  "Mobile Student Experience",
+  "University Discovery Engine",
+  "Institutional Internationalisation",
   "Communication System",
   "Analytics Dashboard",
   "Partner University Database",
@@ -88,6 +94,27 @@ export function DashboardShell() {
           </ul>
         </section>
 
+        <section className="rounded-3xl border border-white/15 bg-white/5 p-6 md:p-8">
+          <h2 className="text-2xl font-semibold">README Module Delivery Status</h2>
+          <p className="mt-2 text-sm text-white/80">
+            Feature-level roadmap integration: this dashboard tracks module maturity, not only route availability.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="rounded-xl border border-teal-300/30 bg-teal-500/10 p-4">
+              <p className="text-xs uppercase tracking-[0.14em] text-teal-100/90">In Progress</p>
+              <p className="mt-2 text-sm text-white">1. RBAC, 2. Mobility, 3. Applications, 4. Documents, 5. Visa, 6. Student Support, 7. Partnerships, 8. Events, 9. Communication, 10. Analytics, 11. Finance and Scholarship, 12. AI and Automation, 13. Knowledge Base and Learning, 14. Mobile Student Experience, 15. Security, 16. Discovery Engine, 17. Institutional Internationalisation</p>
+            </div>
+            <div className="rounded-xl border border-amber-300/30 bg-amber-500/10 p-4">
+              <p className="text-xs uppercase tracking-[0.14em] text-amber-100/90">Planned</p>
+              <p className="mt-2 text-sm text-white">Module deepening sprint continues for process hardening, QA, and production readiness.</p>
+            </div>
+            <div className="rounded-xl border border-indigo-300/30 bg-indigo-500/10 p-4">
+              <p className="text-xs uppercase tracking-[0.14em] text-indigo-100/90">Checkpoint Baseline</p>
+              <p className="mt-2 text-sm text-white">Checkpoint 1 locked and used as ongoing sprint base for phased module delivery.</p>
+            </div>
+          </div>
+        </section>
+
         <section className="grid gap-4 md:grid-cols-3">
           <Link href="/dashboard" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
             <p className="text-xs uppercase tracking-[0.14em] text-white/65">Overview</p>
@@ -128,6 +155,41 @@ export function DashboardShell() {
             <p className="text-xs uppercase tracking-[0.14em] text-white/65">Support CRM</p>
             <h2 className="mt-2 text-xl font-semibold text-white">Ticketing and Communication</h2>
             <p className="mt-2 text-sm text-white/75">Handle visa, hostel, documentation, and emergency support requests.</p>
+          </Link>
+          <Link href="/support" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Module 6</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">International Student Support</h2>
+            <p className="mt-2 text-sm text-white/75">Run pre-arrival and post-arrival assistance workflows with assignment tracking.</p>
+          </Link>
+          <Link href="/finance" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Module 11</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Finance and Scholarship</h2>
+            <p className="mt-2 text-sm text-white/75">Track dues, scholarships, and disbursement milestones for outbound and inbound students.</p>
+          </Link>
+          <Link href="/ai-automation" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Module 12</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">AI and Automation</h2>
+            <p className="mt-2 text-sm text-white/75">Operate automation rules and recommendation workflows for student journeys.</p>
+          </Link>
+          <Link href="/knowledge" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Module 13</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Knowledge and Learning</h2>
+            <p className="mt-2 text-sm text-white/75">Publish knowledge articles and monitor mandatory readiness tracks.</p>
+          </Link>
+          <Link href="/mobile-experience" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Module 14</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Mobile Experience</h2>
+            <p className="mt-2 text-sm text-white/75">Manage announcements and mobile app feedback status workflows.</p>
+          </Link>
+          <Link href="/discovery" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Module 16</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Discovery Engine</h2>
+            <p className="mt-2 text-sm text-white/75">Compare global universities and convert matches into tracked shortlists.</p>
+          </Link>
+          <Link href="/institutional" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
+            <p className="text-xs uppercase tracking-[0.14em] text-white/65">Module 17</p>
+            <h2 className="mt-2 text-xl font-semibold text-white">Institutional Management</h2>
+            <p className="mt-2 text-sm text-white/75">Track internationalisation KPIs and strategic institutional initiatives.</p>
           </Link>
           <Link href="/analytics" className="rounded-2xl border border-white/15 bg-white/5 p-5 transition hover:bg-white/10">
             <p className="text-xs uppercase tracking-[0.14em] text-white/65">KPI Insights</p>
