@@ -1,6 +1,6 @@
 import "reflect-metadata";
 import serverless from "serverless-http";
-import { createApp } from "../../../apps/api/src/create-app";
+import { createApp } from "../../apps/api/src/create-app";
 
 type NodeHandler = (req: unknown, res: unknown) => Promise<unknown>;
 
