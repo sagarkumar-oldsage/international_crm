@@ -98,12 +98,8 @@ async function requestJson<T>(input: string, init?: RequestInit): Promise<T | nu
 }
 
 function getAuthHeaders() {
-  if (!DEMO_AUTH_TOKEN) {
-    throw new Error("NEXT_PUBLIC_DEMO_AUTH_TOKEN is not configured.");
-  }
-
   return {
-    Authorization: `Bearer ${DEMO_AUTH_TOKEN}`,
+    Authorization: `Bearer ${DEMO_AUTH_TOKEN ?? "REPLACE_WITH_REAL_JWT"}`,
     "Content-Type": "application/json"
   };
 }
