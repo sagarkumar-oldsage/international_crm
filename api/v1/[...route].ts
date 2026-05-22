@@ -1,8 +1,7 @@
 import "reflect-metadata";
-import serverless from "serverless-http";
 import { createApp } from "../../apps/api/dist/create-app";
 
-type NodeHandler = (req: unknown, res: unknown) => Promise<unknown>;
+type NodeHandler = (req: unknown, res: unknown) => unknown;
 
 let cachedHandler: NodeHandler | null = null;
 
@@ -14,8 +13,7 @@ async function getHandler(): Promise<NodeHandler> {
   const app = await createApp();
   await app.init();
 
-  const expressApp = app.getHttpAdapter().getInstance();
-  cachedHandler = serverless(expressApp) as NodeHandler;
+  cachedHandler = app.getHttpAdapter().getInstance() as NodeHandler;
 
   return cachedHandler;
 }
