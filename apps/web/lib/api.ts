@@ -61,7 +61,11 @@ import type {
   StudentDocumentDto,
   StudentDocumentSummaryDto,
   StudentApplicationDto,
-  StudentProfileDto
+  StudentProfileDto,
+  WorkspaceCalendarEventDto,
+  WorkspaceInboxItemDto,
+  WorkspaceOverviewDto,
+  WorkspaceSettingsDto
 } from "@contracts/index";
 import type {
   SupportRequestCategoryDto,
@@ -750,6 +754,34 @@ export const initiativeStatusOptions: InitiativeStatusDto[] = [
   "AT_RISK",
   "COMPLETED"
 ];
+
+export async function getWorkspaceOverview(): Promise<WorkspaceOverviewDto | null> {
+  return requestJson<WorkspaceOverviewDto>(`${API_BASE}/workspace/overview`, {
+    headers: getReadHeaders(),
+    cache: "no-store"
+  });
+}
+
+export async function getWorkspaceInbox(): Promise<WorkspaceInboxItemDto[] | null> {
+  return requestJson<WorkspaceInboxItemDto[]>(`${API_BASE}/workspace/inbox`, {
+    headers: getReadHeaders(),
+    cache: "no-store"
+  });
+}
+
+export async function getWorkspaceCalendar(): Promise<WorkspaceCalendarEventDto[] | null> {
+  return requestJson<WorkspaceCalendarEventDto[]>(`${API_BASE}/workspace/calendar`, {
+    headers: getReadHeaders(),
+    cache: "no-store"
+  });
+}
+
+export async function getWorkspaceSettings(): Promise<WorkspaceSettingsDto | null> {
+  return requestJson<WorkspaceSettingsDto>(`${API_BASE}/workspace/settings`, {
+    headers: getReadHeaders(),
+    cache: "no-store"
+  });
+}
 
 
 

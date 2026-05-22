@@ -18,6 +18,7 @@ import { PartnershipsModule } from "./modules/partnerships/partnerships.module";
 import { StudentsModule } from "./modules/students/students.module";
 import { SupportModule } from "./modules/support/support.module";
 import { VisaModule } from "./modules/visa/visa.module";
+import { WorkspaceModule } from "./modules/workspace/workspace.module";
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { VisaModule } from "./modules/visa/visa.module";
     ApplicationsModule,
     CommunicationModule,
     FinanceModule,
+    WorkspaceModule,
     DocumentsModule,
     VisaModule,
     PartnershipsModule,

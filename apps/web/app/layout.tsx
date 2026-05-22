@@ -1,26 +1,25 @@
 import type { Metadata } from "next";
-import { Manrope, Plus_Jakarta_Sans } from "next/font/google";
-import { MantineProvider, createTheme } from "@mantine/core";
-import "@mantine/core/styles.css";
+import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
+const geist = Geist({
   subsets: ["latin"],
-  variable: "--font-body"
+  variable: "--font-body",
+  display: "swap"
 });
 
-const jakarta = Plus_Jakarta_Sans({
+const geistMono = Geist_Mono({
   subsets: ["latin"],
-  variable: "--font-heading"
+  variable: "--font-mono",
+  display: "swap"
 });
 
-// Centralized Mantine theme to keep brand colors consistent across all views.
-const theme = createTheme({
-  primaryColor: "indigo",
-  fontFamily: "var(--font-body), sans-serif",
-  headings: {
-    fontFamily: "var(--font-heading), sans-serif"
-  }
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: "400",
+  style: ["normal", "italic"],
+  display: "swap"
 });
 
 export const metadata: Metadata = {
@@ -35,9 +34,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} ${jakarta.variable}`}>
-        <MantineProvider theme={theme}>{children}</MantineProvider>
-      </body>
+      <body className={`${geist.variable} ${geistMono.variable} ${instrumentSerif.variable}`}>{children}</body>
     </html>
   );
 }

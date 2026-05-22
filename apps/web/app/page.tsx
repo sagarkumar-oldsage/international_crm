@@ -1,6 +1,5 @@
-import { OnePageWebsite } from "../components/onepage-website";
+﻿import { redirect } from "next/navigation";
 
-// Home route is a concise one-page website that introduces the platform.
 export default function HomePage() {
-  return <OnePageWebsite />;
+  redirect("/login");
 }

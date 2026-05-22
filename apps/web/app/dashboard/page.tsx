@@ -1,6 +1,5 @@
-import { DashboardShell } from "../../components/dashboard-shell";
+import { AtlasWorkspacePage } from "../../components/atlas-ui";
 
-// Module dashboard route centralizes navigation after login.
 export default function DashboardPage() {
-  return <DashboardShell />;
+  return <AtlasWorkspacePage />;
 }

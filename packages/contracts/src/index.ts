@@ -651,3 +651,47 @@ export interface UpdateInitiativeStatusDto {
   status: InitiativeStatusDto;
   notes?: string;
 }
+
+export interface WorkspaceOverviewDto {
+  institutionName: string;
+  outboundStudents: number;
+  incomingStudents: number;
+  activeMous: number;
+  visaApprovalRate: number;
+  updatedAt: string;
+}
+
+export type WorkspaceInboxCategoryDto =
+  | "APPLICATION"
+  | "VISA"
+  | "PARTNERSHIP"
+  | "EVENT"
+  | "FINANCE"
+  | "GENERAL";
+
+export interface WorkspaceInboxItemDto {
+  id: string;
+  from: string;
+  subject: string;
+  category: WorkspaceInboxCategoryDto;
+  receivedAt: string;
+  unread: boolean;
+}
+
+export type WorkspaceCalendarTypeDto = "OUTREACH" | "DELEGATION" | "WEBINAR" | "DEADLINE";
+
+export interface WorkspaceCalendarEventDto {
+  id: string;
+  title: string;
+  date: string;
+  type: WorkspaceCalendarTypeDto;
+  owner: string;
+}
+
+export interface WorkspaceSettingsDto {
+  institutionCode: string;
+  timezone: string;
+  defaultCurrency: string;
+  notificationsEnabled: boolean;
+  ssoEnabled: boolean;
+}
