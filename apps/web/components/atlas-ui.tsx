@@ -23,9 +23,9 @@ type NavId =
 
 const APP_DATA = {
   user: {
-    name: "Dr. Priya Menon",
+    name: "Dr. Swati",
     role: "IR Director",
-    initials: "PM",
+    initials: "SW",
     institution: "Tagore Institute of Technology"
   },
   kpis: [
@@ -237,13 +237,42 @@ function KpiRow() {
   );
 }
 
+function GlobalMobilityMap() {
+  const hubs = [
+    { label: "Germany", x: 53, y: 33 },
+    { label: "Canada", x: 28, y: 28 },
+    { label: "France", x: 50, y: 36 },
+    { label: "Japan", x: 78, y: 38 },
+    { label: "Singapore", x: 73, y: 56 }
+  ];
+
+  return (
+    <div className="world-card stripes" style={{ border: "1px solid var(--line-soft)", borderRadius: 8, padding: 10, position: "relative" }}>
+      <svg viewBox="0 0 900 420" style={{ width: "100%", height: "100%", display: "block" }} aria-label="Global mobility map">
+        <rect x="0" y="0" width="900" height="420" fill="oklch(0.985 0.006 85)" />
+        <path d="M74 120l38-32 74-20 76 18 38 42-14 30-58 12-36 30-86-10-44-38z" fill="oklch(0.88 0.02 72)" />
+        <path d="M285 88l84-20 116 8 84 26 16 26-42 22-92 16-84-8-74-32z" fill="oklch(0.86 0.018 70)" />
+        <path d="M492 162l66 8 80 30 90 4 78 26-10 26-76 14-98-6-84-26-54-46z" fill="oklch(0.84 0.016 68)" />
+        <path d="M670 274l52 14 46 34-10 26-54 14-62-18-16-34z" fill="oklch(0.83 0.018 66)" />
+        {hubs.map((hub) => (
+          <g key={hub.label}>
+            <circle cx={hub.x * 9} cy={hub.y * 4.2} r="7" fill="var(--clay)" />
+            <circle cx={hub.x * 9} cy={hub.y * 4.2} r="16" fill="none" stroke="oklch(0.66 0.155 42 / 0.35)" strokeWidth="2" />
+            <text x={hub.x * 9 + 12} y={hub.y * 4.2 + 4} fontSize="12" fill="var(--ink-soft)" fontFamily="var(--font-mono), monospace">{hub.label}</text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
 function OverviewScreen() {
   return (
     <div className="page fade-in">
       <HeaderBlock
         kicker={`Thursday, 21 May 2026 - ${APP_DATA.user.institution}`}
         title="Good morning,"
-        accent="Priya."
+        accent="Swati."
         subtitle="Here's what's happening across global mobility today."
         actions={
           <>
@@ -260,7 +289,7 @@ function OverviewScreen() {
             <span className="chip">Outbound</span>
           </div>
           <div className="card-body">
-            <div className="world-card stripes" style={{ border: "1px solid var(--line-soft)", borderRadius: 8 }} />
+            <GlobalMobilityMap />
           </div>
         </div>
         <div className="card">
@@ -692,7 +721,7 @@ function SimpleLineChart() {
 function AIScreen() {
   return (
     <div className="page fade-in">
-      <HeaderBlock kicker="Intelligence - AI Counsellor" title="Atlas" accent="AI" subtitle="Recommendation and automation assistance for IR teams." actions={<button className="btn-primary">Run model</button>} />
+      <HeaderBlock kicker="Intelligence - AI Counsellor" title="Atlas PU" accent="AI" subtitle="Recommendation and automation assistance for IR teams." actions={<button className="btn-primary">Run model</button>} />
       <div className="grid-2" style={{ gridTemplateColumns: "1.5fr 1fr" }}>
         <div className="card">
           <div className="card-head"><h3>Assistant conversation</h3><span className="chip plum">Beta</span></div>
@@ -700,7 +729,7 @@ function AIScreen() {
             <div style={{ display: "grid", gap: 14 }}>
               <div style={{ justifySelf: "end", maxWidth: "78%", background: "var(--clay)", color: "white", borderRadius: "12px 12px 4px 12px", padding: "10px 12px" }}>Which students have highest visa risk this month?</div>
               <div style={{ maxWidth: "85%" }}>
-                <div className="mono" style={{ fontSize: 10, color: "var(--ink-mute)", marginBottom: 6 }}>ATLAS</div>
+                <div className="mono" style={{ fontSize: 10, color: "var(--ink-mute)", marginBottom: 6 }}>ATLAS PU</div>
                 <div style={{ background: "var(--bg-tint)", border: "1px solid var(--line-soft)", borderRadius: 10, padding: "12px 14px" }}>
                   3 students need urgent attention before May 30. Rohan Mehta has financial documents pending; Meera Pillai has interview prep gaps; Vikram Reddy is missing nomination paperwork.
                 </div>
@@ -711,7 +740,7 @@ function AIScreen() {
               </div>
             </div>
             <div style={{ display: "flex", gap: 8, marginTop: 16 }}>
-              <input placeholder="Ask Atlas anything..." style={{ flex: 1, border: "1px solid var(--line)", borderRadius: 8, padding: "10px 12px", background: "var(--surface)" }} />
+              <input placeholder="Ask Atlas PU anything..." style={{ flex: 1, border: "1px solid var(--line)", borderRadius: 8, padding: "10px 12px", background: "var(--surface)" }} />
               <button className="btn-primary">Send</button>
             </div>
           </div>
@@ -810,7 +839,7 @@ function CalendarScreen() {
 function SettingsScreen() {
   return (
     <div className="page fade-in">
-      <HeaderBlock kicker="Workspace - Settings" title="Atlas" accent="configuration" subtitle="Security, notifications, and institutional preferences." />
+      <HeaderBlock kicker="Workspace - Settings" title="Atlas PU" accent="configuration" subtitle="Security, notifications, and institutional preferences." />
       <div className="grid-2" style={{ gridTemplateColumns: "1fr 1fr" }}>
         <div className="card">
           <div className="card-head"><h3>Profile</h3></div>
@@ -885,7 +914,7 @@ function Sidebar({ activeId }: { activeId: NavId }) {
       <div className="sidebar-brand">
         <div className="brand-mark">A</div>
         <div>
-          <div className="brand-name">Atlas</div>
+          <div className="brand-name">Atlas PU</div>
           <div className="brand-tag">IR CRM</div>
         </div>
       </div>
@@ -910,7 +939,7 @@ function Sidebar({ activeId }: { activeId: NavId }) {
           <span>Settings</span>
         </Link>
         <div className="user-card" style={{ background: "oklch(1 0 0 / 0.04)", borderRadius: 8 }}>
-          <div className="avatar">PM</div>
+          <div className="avatar">{APP_DATA.user.initials}</div>
           <div style={{ minWidth: 0, flex: 1 }}>
             <div style={{ color: "var(--bg)", fontSize: 13, fontWeight: 500 }}>{APP_DATA.user.name}</div>
             <div className="mono" style={{ fontSize: 10, color: "oklch(0.7 0.02 320)", letterSpacing: "0.06em" }}>{APP_DATA.user.role}</div>
@@ -958,7 +987,7 @@ function Topbar({ activeId }: { activeId: NavId }) {
         <Ico name="compass" size={13} /> New
       </button>
       <button className="icon-btn"><Ico name="mail" size={15} /></button>
-      <div className="avatar sage" style={{ marginLeft: 4 }} title="Priya Menon">PM</div>
+      <div className="avatar sage" style={{ marginLeft: 4 }} title="Dr. Swati">{APP_DATA.user.initials}</div>
     </header>
   );
 }
@@ -985,7 +1014,7 @@ export function AtlasLoginPage() {
         <div style={{ position: "relative", zIndex: 1, display: "flex", alignItems: "center", gap: 12 }}>
           <div style={{ width: 40, height: 40, background: "oklch(0.97 0.012 85)", color: "oklch(0.19 0.025 320)", borderRadius: 9, display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Instrument Serif, serif", fontStyle: "italic", fontSize: 26, lineHeight: 1 }}>A</div>
           <div>
-            <div style={{ fontSize: 16, fontWeight: 500 }}>Atlas</div>
+            <div style={{ fontSize: 16, fontWeight: 500 }}>Atlas PU</div>
             <div className="mono" style={{ fontSize: 10, opacity: 0.65, letterSpacing: "0.14em", textTransform: "uppercase" }}>International Relations CRM</div>
           </div>
         </div>
@@ -1013,14 +1042,14 @@ export function AtlasLoginPage() {
           </p>
           <div className="field">
             <label htmlFor="email">Institutional Email</label>
-            <input id="email" type="email" defaultValue="priya.menon@tagore.edu" />
+            <input id="email" type="email" defaultValue="dr.swati@tagore.edu" />
           </div>
           <div className="field">
             <label htmlFor="pwd">Password</label>
             <input id="pwd" type="password" defaultValue="********" />
           </div>
           <Link href="/dashboard" className="btn-primary" style={{ width: "100%", textDecoration: "none" }}>
-            Continue to Atlas
+            Continue to Atlas PU
           </Link>
         </div>
       </div>
